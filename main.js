@@ -5,22 +5,22 @@ const {ipcMain} = electron;
 let win;
 function createWindow() {
   // 创建窗口并加载页面
-  win = new BrowserWindow({width: 800, height: 600});
-  win.loadURL(`file://${__dirname}/index.html`);
-
+	win = new BrowserWindow({width: 800, height: 600});
+	win.loadURL(`file://${__dirname}/index.html`);
 	
-ipcMain.on('synchronous-message', function(event, arg) {
-  console.log(arg);  // prints "ping"
-  event.returnValue = 'pong';
-});
+	
+	ipcMain.on('abc', function(event, arg) {
+	  console.log(arg);  // prints "ping"
+	  event.returnValue = 'bbb';
+	});
 
 
-  // 打开窗口的调试工具
-  // win.webContents.openDevTools();
-  // 窗口关闭的监听
-  win.on('closed', () => {
-    win = null;
-  });
+	// 打开窗口的调试工具
+	win.webContents.openDevTools();
+	// 窗口关闭的监听
+	win.on('closed', () => {
+		win = null;
+	});
 }
 
 app.on('ready', createWindow);

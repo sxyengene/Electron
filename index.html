@@ -7,12 +7,7 @@
   <body>
     <script>
       const ipcRenderer = require('electron').ipcRenderer;
-      console.log(ipcRenderer.sendSync('synchronous-message', 'ping')); // prints "pong"
-
-      ipcRenderer.on('synchronous-reply', function(event, arg) {
-        console.log(arg); // prints "pong"
-      });
-      ipcRenderer.send('synchronous-message', 'ping');
+      var b = ipcRenderer.sendSync('abc', 'aaa');
     </script>
     <h1>Hello World!</h1>
     We are using node <script>document.write(process.versions.node)</script>,
