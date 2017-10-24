@@ -1,11 +1,19 @@
 const electron = require('electron');
 const { app } = electron;
 const { BrowserWindow } = electron;
+const {ipcMain} = electron;
 let win;
 function createWindow() {
   // 创建窗口并加载页面
   win = new BrowserWindow({width: 800, height: 600});
   win.loadURL(`file://${__dirname}/index.html`);
+
+	
+ipcMain.on('synchronous-message', function(event, arg) {
+  console.log(arg);  // prints "ping"
+  event.returnValue = 'pong';
+});
+
 
   // 打开窗口的调试工具
   // win.webContents.openDevTools();
