@@ -15,12 +15,24 @@ function createWindow() {
 	  event.returnValue = 'bbb';
 	});
 
+	/*进度条*/
+	var progressSpeed = 0;
+	var pstimer = setInterval(()=>{
+		if(progressSpeed > 100){
+			clearInterval(pstimer);
+		}else{
+			progressSpeed += Math.random() * 10;
+			win.setProgressBar(progressSpeed / 100);
+		}
+	}, 200)
 
+
+	/*缩略图 图标*/
 	win.setThumbarButtons([
 		{
 			tooltip: "button1",
 			icon: path.join(__dirname, 'button1.png'),
-			flags:['nobackground'],
+			flags:['disabled'],
 			click: function() { 
 				console.log("button2 clicked"); 
 			}
@@ -28,12 +40,17 @@ function createWindow() {
 		{
 			tooltip: "button2",
 			icon: path.join(__dirname, 'button2.png'),
-			flags:['enabled', 'dismissonclick'],
+			flags:['dismissonclick'],
 			click: function() {
 				console.log("button2 clicked."); 
 			}
 		}
 	]);
+
+	var txt = path.resolve(__dirname,'record.txt');
+	console.log(txt);
+	win.setRepresentedFilename(txt);
+	win.setDocumentEdited(true);
 
 	// app.addRecentDocument('file:\\\\C:\\Users\\viruser.v-desktop\\Desktop\\b.js');
 
@@ -57,4 +74,5 @@ app.on('activate', () => {
     createWindow();
   }
 });
+
 
