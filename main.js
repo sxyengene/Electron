@@ -47,12 +47,6 @@ function createWindow() {
 		}
 	]);
 
-	var txt = path.resolve(__dirname,'record.txt');
-	console.log(txt);
-	win.setRepresentedFilename(txt);
-	win.setDocumentEdited(true);
-
-	// app.addRecentDocument('file:\\\\C:\\Users\\viruser.v-desktop\\Desktop\\b.js');
 
 	// 打开窗口的调试工具
 	win.webContents.openDevTools();
