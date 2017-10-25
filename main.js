@@ -21,13 +21,17 @@ function createWindow() {
 			tooltip: "button1",
 			icon: path.join(__dirname, 'button1.png'),
 			flags:['nobackground'],
-			click: function() { console.log("button2 clicked"); }
+			click: function() { 
+				console.log("button2 clicked"); 
+			}
 		},
 		{
 			tooltip: "button2",
 			icon: path.join(__dirname, 'button2.png'),
 			flags:['enabled', 'dismissonclick'],
-			click: function() { console.log("button2 clicked."); }
+			click: function() {
+				console.log("button2 clicked."); 
+			}
 		}
 	]);
 
