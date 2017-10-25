@@ -1,3 +1,4 @@
+const path = require('path');
 const electron = require('electron');
 const { app } = electron;
 const { BrowserWindow } = electron;
@@ -14,6 +15,23 @@ function createWindow() {
 	  event.returnValue = 'bbb';
 	});
 
+
+	win.setThumbarButtons([
+		{
+			tooltip: "button1",
+			icon: path.join(__dirname, 'button1.png'),
+			flags:['nobackground'],
+			click: function() { console.log("button2 clicked"); }
+		},
+		{
+			tooltip: "button2",
+			icon: path.join(__dirname, 'button2.png'),
+			flags:['enabled', 'dismissonclick'],
+			click: function() { console.log("button2 clicked."); }
+		}
+	]);
+
+	// app.addRecentDocument('file:\\\\C:\\Users\\viruser.v-desktop\\Desktop\\b.js');
 
 	// 打开窗口的调试工具
 	win.webContents.openDevTools();
@@ -35,3 +53,4 @@ app.on('activate', () => {
     createWindow();
   }
 });
+
