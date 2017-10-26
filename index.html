@@ -5,16 +5,24 @@
     <title>Hello World!</title>
   </head>
   <body>
-  <script src="http://s.thsi.cn/cb?sns/sea-modules/;jquery/jquery/1.11.0/jquery.js"></script>
     <script>
       const ipcRenderer = require('electron').ipcRenderer;
-      $(window).on('onlineOrOffline',function(){
+      var alertOnlineStatus = function() {
+        var flag = navigator.onLine ? 'online' : 'offline';
+        ipcRenderer.sendSync('onlineOrOffline', flag);
+      };
+
+      window.addEventListener('DOMContentLoaded',  alertOnlineStatus);
+      /*上下线需要绑定的事件*/
+      // window.addEventListener('online',  alertOnlineStatus);
+      // window.addEventListener('offline',  alertOnlineStatus);
+
+      function isOnline(){
         var onLineFlag = navigator.onLine ? 'online' : 'offline';
-        console.log(onLineFlag);
-        ipcRenderer.sendSync('onlineOrOffline', onLineFlag);
-      });
+        return onLineFlag
+      }
     </script>
-    <a href="http://www.baidu.com/"></a>
+    <a class="a" href="http://www.baidu.com/">http://www.baidu.com/</a>
     <h1>Hello World!</h1>
     We are using node <script>document.write(process.versions.node)</script>,
     Chrome <script>document.write(process.versions.chrome)</script>,
