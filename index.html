@@ -5,9 +5,14 @@
     <title>Hello World!</title>
   </head>
   <body>
+  <script src="http://s.thsi.cn/cb?sns/sea-modules/;jquery/jquery/1.11.0/jquery.js"></script>
     <script>
       const ipcRenderer = require('electron').ipcRenderer;
-      var b = ipcRenderer.sendSync('abc', 'aaa');
+      $(window).on('onlineOrOffline',function(){
+        var onLineFlag = navigator.onLine ? 'online' : 'offline';
+        console.log(onLineFlag);
+        ipcRenderer.sendSync('onlineOrOffline', onLineFlag);
+      });
     </script>
     <h1>Hello World!</h1>
     We are using node <script>document.write(process.versions.node)</script>,
