@@ -54,6 +54,7 @@ function createWindow() {
 	win.webContents.openDevTools();
 	// 窗口关闭的监听
 	win.on('closed', () => {
+		clearInterval(pstimer);
 		win = null;
 	});
 }
