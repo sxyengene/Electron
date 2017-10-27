@@ -7,8 +7,17 @@ let win;
 function createWindow() {
 	// console.log('app ready.create window.');
 	// 创建窗口并加载页面
-	win = new BrowserWindow({width: 800, height: 600});
+	win = new BrowserWindow({
+		width: 800, 
+		height: 600,
+		webPreferences:
+        {
+            nodeIntegration: false,
+            preload: path.join(__dirname, 'tangide', 'expose-window-apis.js')
+        }
+	});
 	win.loadURL(`file://${__dirname}/index.html`);
+	win.loadURL('http://www.baidu.com/');
 	
 
 	console.log(process.type);
