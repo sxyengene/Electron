@@ -5,10 +5,13 @@ const { BrowserWindow } = electron;
 const {ipcMain} = electron;
 let win;
 function createWindow() {
+	console.log('app ready.create window.');
 	// 创建窗口并加载页面
 	win = new BrowserWindow({width: 800, height: 600});
 	win.loadURL(`file://${__dirname}/index.html`);
 	
+
+
 	/*上下线*/
 	ipcMain.on('onlineOrOffline', function(event, arg) {
 		console.log(arg);
@@ -54,6 +57,14 @@ function createWindow() {
 		win = null;
 	});
 }
+
+var _setImmediate = setImmediate;
+var _clearImmediate = clearImmediate;
+process.once('loaded', function() {
+	console.log('process loaded')
+	global.setImmediate = _setImmediate;
+	global.clearImmediate = _clearImmediate;
+});
 
 app.on('ready', createWindow);
 app.on('window-all-closed', () => {
