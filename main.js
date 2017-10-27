@@ -13,14 +13,12 @@ function createWindow() {
 		webPreferences:
         {
             nodeIntegration: false,
-            preload: path.join(__dirname, 'tangide', 'expose-window-apis.js')
+            preload: path.resolve(__dirname,'ipcRenderer.js')
         }
 	});
 	win.loadURL(`file://${__dirname}/index.html`);
-	win.loadURL('http://www.baidu.com/');
-	
 
-	console.log(process.type);
+	// console.log(process.type);
 	/*上下线*/
 	ipcMain.on('onlineOrOffline', function(event, arg) {
 		// console.log(arg);
