@@ -3,9 +3,10 @@ const { app } = electron;
 const { BrowserWindow } = electron;
 let win;
 function createWindow() {
+	const {net} = require()
   // 创建窗口并加载页面
   win = new BrowserWindow({width: 800, height: 600});
-  win.loadURL(`file://${__dirname}/index.html`);
+  win.loadURL(`http://www.baidu.com`);
 
   // 打开窗口的调试工具
   // win.webContents.openDevTools();
