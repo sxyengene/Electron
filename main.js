@@ -1,8 +1,8 @@
 const path = require('path');
 const electron = require('electron');
-const { app } = electron;
-const { BrowserWindow } = electron;
-const {ipcMain} = electron;
+const { app,BrowserWindow,ipcMain } = electron;
+
+
 let win;
 function createWindow() {
 	// console.log('app ready.create window.');
@@ -13,17 +13,24 @@ function createWindow() {
 		webPreferences:
         {
             nodeIntegration: false,
+            // offscreen: true,
             preload: path.resolve(__dirname,'ipcRenderer.js')
         }
 	});
 	win.loadURL(`file://${__dirname}/index.html`);
 
+	console.log(process.version);
 	// console.log(process.type);
 	/*上下线*/
 	ipcMain.on('onlineOrOffline', function(event, arg) {
 		// console.log(arg);
 		event.returnValue = '';
 	});
+
+	// win.webContents.on('paint', (event, dirty, image) => {
+ //    	// updateBitmap(dirty, image.getBitmap())
+ //  	})
+  	// win.webContents.setFrameRate(30);
 
 	/*进度条*/
 	var progressSpeed = 0;
