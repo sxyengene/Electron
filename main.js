@@ -1,6 +1,6 @@
 const path = require('path');
 const electron = require('electron');
-const { app,BrowserWindow,ipcMain } = electron;
+const { app,BrowserWindow,ipcMain,nativeImage,dialog } = electron;
 
 
 let win;
@@ -34,7 +34,13 @@ function createWindow() {
 		event.returnValue = '';
 	});
 
+	/*打开文件*/
+	ipcMain.on('openFile', function(event, arg) {
+		dialog.showOpenDialog({ properties: [ 'openFile', 'openDirectory', 'multiSelections' ]});
+		event.returnValue = '';
+	});
 
+	/*新增窗口*/
 	ipcMain.on('openWindow', function(event, arg) {
 		// console.log(arg);
 		if(!!arg[0]){
@@ -57,11 +63,15 @@ function createWindow() {
 		event.returnValue = '';
 	});
 
-	var appIcon = new Tray('./button1.png');
-	
-	win.setOverlayIcon(appIcon, 'description')
+	var image = nativeImage.createFromPath('./button1.png');
+	win.setOverlayIcon(image, 'description')
 	var winArr = BrowserWindow.getAllWindows();
 	console.log(win.id);
+
+
+	
+	// win.setAutoHideMenuBar(true);
+	win.setMenuBarVisibility(false);
 	
 
 	// console.log(winArr)
@@ -95,7 +105,7 @@ function createWindow() {
 		});
 	}).then(()=>{
 		new Promise((res,rej)=>{
-			win.setSkipTaskbar(true);
+			win.setSkipTaskbar(false);
 			res();
 		});
 	}).then(()=>{

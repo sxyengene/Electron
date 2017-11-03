@@ -29,6 +29,11 @@
         createDom.addEventListener('click',  function(){
           ipcRenderer.sendSync('openWindow', '1');
         });
+
+        var openFile = document.getElementsByClassName('openFile');
+        openFile.addEventListener('click',  function(){
+          ipcRenderer.sendSync('openFile', '1');
+        });
       });
     </script>
     <a class="a" href="http://www.baidu.com/">http://www.baidu.com/</a>
@@ -36,6 +41,10 @@
 
     <div class="createWindow" id="createWindow">
       createWindow
+    </div>
+
+    <div class="openFile">
+      openFile
     </div>
 
     <!-- We are using node <script>document.write(process.versions.node)</script>, -->
