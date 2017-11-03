@@ -57,7 +57,9 @@ function createWindow() {
 		event.returnValue = '';
 	});
 
-
+	var appIcon = new Tray('./button1.png');
+	
+	win.setOverlayIcon(appIcon, 'description')
 	var winArr = BrowserWindow.getAllWindows();
 	console.log(win.id);
 	
