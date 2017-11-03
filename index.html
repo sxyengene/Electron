@@ -7,6 +7,7 @@
   <body>
 
     <script>
+
       var alertOnlineStatus = function() {
         var flag = navigator.onLine ? 'online' : 'offline';
         ipcRenderer.sendSync('onlineOrOffline', flag);
@@ -22,9 +23,21 @@
         return onLineFlag
       }
 
+
+      window.addEventListener('DOMContentLoaded',  function(){
+        var createDom = document.getElementById('createWindow');
+        createDom.addEventListener('click',  function(){
+          ipcRenderer.sendSync('openWindow', '1');
+        });
+      });
     </script>
     <a class="a" href="http://www.baidu.com/">http://www.baidu.com/</a>
     <h1>Hello World!</h1>
+
+    <div class="createWindow" id="createWindow">
+      createWindow
+    </div>
+
     <!-- We are using node <script>document.write(process.versions.node)</script>, -->
     <!-- Chrome <script>document.write(process.versions.chrome)</script>, -->
     <!-- and Electron <script>document.write(process.versions.electron)</script>. -->

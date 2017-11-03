@@ -8,14 +8,15 @@ function createWindow() {
 	// console.log('app ready.create window.');
 	// 创建窗口并加载页面
 	win = new BrowserWindow({
-		width: 800, 
-		height: 600,
+		width: 1000, 
+		height: 1000,
 		// x:0,
 		// y:0,
-		maxWidth:1000,
-		resizable:false,
-		movable:false,
-		alwaysOnTop:true,
+		// maxWidth:1000,
+		// resizable:false,
+		// movable:false,
+		// fullscreen:true,
+		title:"123",
 		webPreferences:
         {
             nodeIntegration: false,
@@ -24,14 +25,44 @@ function createWindow() {
         }
 	});
 	win.loadURL(`file://${__dirname}/index.html`);
-
-	console.log(process.version);
+	win.maximize();
+	// console.log(process.version);
 	// console.log(process.type);
 	/*上下线*/
 	ipcMain.on('onlineOrOffline', function(event, arg) {
 		// console.log(arg);
 		event.returnValue = '';
 	});
+
+
+	ipcMain.on('openWindow', function(event, arg) {
+		// console.log(arg);
+		if(!!arg[0]){
+			var newwin = new BrowserWindow({
+				width: 800, 
+				height: 600,
+				// x:0,
+				// y:0,
+				maxWidth:1000,
+				webPreferences:
+		        {
+		            nodeIntegration: false,
+		            // offscreen: true,
+		            preload: path.resolve(__dirname,'ipcRenderer.js')
+		        }
+			});
+			newwin.loadURL('http://www.baidu.com/');
+			console.log(win.id);
+		}
+		event.returnValue = '';
+	});
+
+
+	var winArr = BrowserWindow.getAllWindows();
+	console.log(win.id);
+	
+
+	// console.log(winArr)
 
 	// win.webContents.on('paint', (event, dirty, image) => {
  //    	// updateBitmap(dirty, image.getBitmap())
@@ -40,15 +71,37 @@ function createWindow() {
 
 	/*进度条*/
 	var progressSpeed = 0;
-	var pstimer = setInterval(()=>{
-		if(progressSpeed > 100){
-			clearInterval(pstimer);
-		}else{
-			progressSpeed += Math.random() * 10;
-			win.setProgressBar(progressSpeed / 100);
-		}
-	}, 200)
+	var pstimer;
+	var p = new Promise((resolve,reject)=>{
+		pstimer = setInterval(()=>{
+			if(progressSpeed > 100){
+				clearInterval(pstimer);
+				resolve();
+			}else{
+				progressSpeed += Math.random() * 30;
+				win.setProgressBar(progressSpeed / 100);
+			}
+		}, 200);
+	});
 
+	p.then(()=>{
+		new Promise((resolve,reject)=>{
+			win.flashFrame(true);
+			setTimeout(()=>{
+				resolve();
+			}, 200);
+		});
+	}).then(()=>{
+		new Promise((res,rej)=>{
+			win.setSkipTaskbar(true);
+			res();
+		});
+	}).then(()=>{
+		// win.setDocumentEdited(true);
+	})
+
+
+	
 
 	/*缩略图 图标*/
 	win.setThumbarButtons([
