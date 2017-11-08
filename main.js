@@ -1,6 +1,6 @@
 const path = require('path');
 const electron = require('electron');
-const { app,BrowserWindow,ipcMain,nativeImage,dialog } = electron;
+const { app,BrowserWindow,ipcMain,nativeImage,dialog,globalShortcut } = electron;
 
 
 let win;
@@ -46,7 +46,7 @@ function createWindow() {
 		},callback);
 		event.returnValue = '';
 	});
-
+	/*保存文件*/
 	ipcMain.on('showSaveDialog', function(event, arg) {
 		console.log('showSaveDialog')
 		var callback = function(args){
@@ -54,10 +54,35 @@ function createWindow() {
 		};
 		dialog.showSaveDialog({
 			/*选择图片和选择文件夹不一样*/
-			properties: [ 'openFile'/*, 'openDirectory', 'multiSelections'*/ ]
+			properties: [ 'openFile'/*, 'openDirectory', 'multiSelections'*/ ],
+			defaultPath:"abc.txt"
 		},callback);
+
 		event.returnValue = '';
 	});
+	/*alert*/
+	ipcMain.on('showMessageBox', function(event, arg) {
+		console.log('showMessageBox')
+		var callback = function(args){
+			console.log(args);
+		};
+		dialog.showMessageBox({
+			message:'123',
+			type:'error'
+		},callback);
+
+		event.returnValue = '';
+	});
+	/* error */
+	ipcMain.on('showErrorBox', function(event, arg) {
+		var callback = function(args){
+			console.log(args);
+		};
+		dialog.showErrorBox('title', 'content');
+
+		event.returnValue = '';
+	});
+
 
 	/*新增窗口*/
 	ipcMain.on('openWindow', function(event, arg) {
@@ -87,6 +112,10 @@ function createWindow() {
 	var winArr = BrowserWindow.getAllWindows();
 	console.log(win.id);
 
+
+	 var ret = globalShortcut.register('ctrl+x', function() {
+	    console.log('ctrl+x is pressed');
+	  })
 
 	
 	// win.setAutoHideMenuBar(true);
@@ -172,6 +201,13 @@ process.once('loaded', function() {
 });
 
 app.on('ready', createWindow);
+app.on('will-quit', function() {
+  // Unregister a shortcut.
+  globalShortcut.unregister('ctrl+x');
+
+  // Unregister all shortcuts.
+  globalShortcut.unregisterAll();
+});
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();

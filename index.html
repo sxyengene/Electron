@@ -38,6 +38,15 @@
         openFile[1].addEventListener('click',  function(){
           ipcRenderer.sendSync('showSaveDialog', '1');
         });
+
+        openFile[2].addEventListener('click',  function(){
+          ipcRenderer.sendSync('showMessageBox', '1');
+        });
+
+        openFile[3].addEventListener('click',  function(){
+          ipcRenderer.sendSync('showErrorBox', '1');
+        });
+
       });
     </script>
     <a class="a" href="http://www.baidu.com/">http://www.baidu.com/</a>
@@ -52,8 +61,17 @@
     </div>
     <br>
     <div class="openFile">
-      openFile
+      showSaveDialog
     </div>
+    <br>
+    <div class="openFile">
+      showMessageBox
+    </div>
+    <br>
+    <div class="openFile">
+      showErrorBox
+    </div>
+    <br>
 
     <!-- We are using node <script>document.write(process.versions.node)</script>, -->
     <!-- Chrome <script>document.write(process.versions.chrome)</script>, -->
