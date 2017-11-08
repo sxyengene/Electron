@@ -31,8 +31,12 @@
         });
 
         var openFile = document.getElementsByClassName('openFile');
-        openFile.addEventListener('click',  function(){
-          ipcRenderer.sendSync('openFile', '1');
+        openFile[0].addEventListener('click',  function(){
+          ipcRenderer.sendSync('showOpenDialog', '1');
+        });
+
+        openFile[1].addEventListener('click',  function(){
+          ipcRenderer.sendSync('showSaveDialog', '1');
         });
       });
     </script>
@@ -42,7 +46,11 @@
     <div class="createWindow" id="createWindow">
       createWindow
     </div>
-
+    <br>
+    <div class="openFile">
+      openFile
+    </div>
+    <br>
     <div class="openFile">
       openFile
     </div>

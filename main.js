@@ -8,10 +8,10 @@ function createWindow() {
 	// console.log('app ready.create window.');
 	// 创建窗口并加载页面
 	win = new BrowserWindow({
-		width: 1000, 
-		height: 1000,
-		// x:0,
-		// y:0,
+		// width: 1000, 
+		// height: 1000,
+		x:1000,
+		y:200,
 		// maxWidth:1000,
 		// resizable:false,
 		// movable:false,
@@ -25,7 +25,7 @@ function createWindow() {
         }
 	});
 	win.loadURL(`file://${__dirname}/index.html`);
-	win.maximize();
+	// win.maximize();
 	// console.log(process.version);
 	// console.log(process.type);
 	/*上下线*/
@@ -35,10 +35,27 @@ function createWindow() {
 	});
 
 	/*打开文件*/
-	ipcMain.on('openFile', function(event, arg) {
+	ipcMain.on('showOpenDialog', function(event, arg) {
+		console.log('showOpenDialog')
+		var callback = function(args){
+			console.log(args);
+		};
 		dialog.showOpenDialog({
-			properties: [ 'openFile', 'openDirectory', 'multiSelections' ]
-		});
+			/*选择图片和选择文件夹不一样*/
+			properties: [ 'openFile'/*, 'openDirectory', 'multiSelections'*/ ]
+		},callback);
+		event.returnValue = '';
+	});
+
+	ipcMain.on('showSaveDialog', function(event, arg) {
+		console.log('showSaveDialog')
+		var callback = function(args){
+			console.log(args);
+		};
+		dialog.showSaveDialog({
+			/*选择图片和选择文件夹不一样*/
+			properties: [ 'openFile'/*, 'openDirectory', 'multiSelections'*/ ]
+		},callback);
 		event.returnValue = '';
 	});
 
