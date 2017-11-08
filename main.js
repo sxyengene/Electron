@@ -36,7 +36,9 @@ function createWindow() {
 
 	/*打开文件*/
 	ipcMain.on('openFile', function(event, arg) {
-		dialog.showOpenDialog({ properties: [ 'openFile', 'openDirectory', 'multiSelections' ]});
+		dialog.showOpenDialog({
+			properties: [ 'openFile', 'openDirectory', 'multiSelections' ]
+		});
 		event.returnValue = '';
 	});
 
