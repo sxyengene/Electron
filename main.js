@@ -21,15 +21,110 @@ function createWindow() {
 		title:"123",
 		webPreferences:
         {
-            nodeIntegration: false,
+            // nodeIntegration: false,
             // offscreen: true,
-            preload: path.resolve(__dirname,'ipcRenderer.js')
+            // preload: path.resolve(__dirname,'ipcRenderer.js')
         }
 	});
 	win.loadURL(`file://${__dirname}/index.html`);
+	registerGlobalShortCut();
+	// 打开窗口的调试工具
+	win.webContents.openDevTools();
+	ipcMainHandle();
+	menuInit();
+	thumbarButtonsInit();
+	progressInit();
+	// console.log(123)
+	// return;
 	// win.maximize();
 	// console.log(process.version);
 	// console.log(process.type);
+	var image = nativeImage.createFromPath('./button1.png');
+	win.setOverlayIcon(image, 'description')
+	var winArr = BrowserWindow.getAllWindows();
+	console.log(win.id);
+	// win.setAutoHideMenuBar(true);
+	win.setMenuBarVisibility(true);
+	// console.log(winArr)
+	// win.webContents.on('paint', (event, dirty, image) => {
+ //    	// updateBitmap(dirty, image.getBitmap())
+ //  	})
+  	// win.webContents.setFrameRate(30);
+
+	
+
+
+	
+
+	var id = powerSaveBlocker.start('prevent-display-sleep');
+	console.log(powerSaveBlocker.isStarted(id));
+
+	powerSaveBlocker.stop(id);
+
+	
+
+	
+	// 窗口关闭的监听
+	win.on('closed', () => {
+		clearInterval(pstimer);
+		win = null;
+	});
+}
+
+var _setImmediate = setImmediate;
+var _clearImmediate = clearImmediate;
+process.once('loaded', function() {
+	// console.log('process loaded')
+	global.setImmediate = _setImmediate;
+	global.clearImmediate = _clearImmediate;
+});
+
+app.on('ready', createWindow);
+app.on('will-quit', function() {
+  // Unregister a shortcut.
+  globalShortcut.unregister('ctrl+x');
+
+  // Unregister all shortcuts.
+  globalShortcut.unregisterAll();
+});
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
+
+app.on('activate', () => {
+  if (win === null) {
+    createWindow();
+  }
+});
+
+
+
+
+function registerGlobalShortCut(){
+	/*键盘组合键*/
+	function globalShortcutAll(){
+		globalShortcut.register('ctrl+x', function() {
+			console.log('ctrl+x');
+		});
+
+		globalShortcut.register('F5', function() {
+			win.webContents.reload();
+		});
+	}
+
+	win.on('blur',()=>{
+		globalShortcut.unregisterAll();
+	});
+
+	win.on('focus',()=>{
+		globalShortcutAll();
+	});
+}
+
+// ipcMain
+function ipcMainHandle(){
 	/*上下线*/
 	ipcMain.on('onlineOrOffline', function(event, arg) {
 		// console.log(arg);
@@ -108,34 +203,10 @@ function createWindow() {
 		}
 		event.returnValue = '';
 	});
+}
 
-	var image = nativeImage.createFromPath('./button1.png');
-	win.setOverlayIcon(image, 'description')
-	var winArr = BrowserWindow.getAllWindows();
-	console.log(win.id);
-
-	/*键盘组合键*/
-	function globalShortcutAll(){
-		globalShortcut.register('ctrl+x', function() {
-			console.log('ctrl+x');
-		});
-
-		globalShortcut.register('F5', function() {
-			win.webContents.reload();
-		});
-	}
-
-	win.on('blur',()=>{
-		globalShortcut.unregisterAll();
-	});
-
-	win.on('focus',()=>{
-		globalShortcutAll();
-	});
-	
-	// win.setAutoHideMenuBar(true);
-	win.setMenuBarVisibility(true);
-
+/*菜单*/
+function menuInit(){
 	var template = [
 	  {
 	    label: 'Edit',
@@ -246,14 +317,34 @@ function createWindow() {
 
 	var menu = Menu.buildFromTemplate(template);
 	Menu.setApplicationMenu(menu);
+}
 
-	// console.log(winArr)
 
-	// win.webContents.on('paint', (event, dirty, image) => {
- //    	// updateBitmap(dirty, image.getBitmap())
- //  	})
-  	// win.webContents.setFrameRate(30);
+/*缩略图 初始化*/
+function thumbarButtonsInit(){
+	/*缩略图 图标*/
+	win.setThumbarButtons([
+		{
+			tooltip: "button1",
+			icon: path.join(__dirname, 'button1.png'),
+			flags:['disabled'],
+			click: function() { 
+				// console.log("button2 clicked"); 
+			}
+		},
+		{
+			tooltip: "button2",
+			icon: path.join(__dirname, 'button2.png'),
+			flags:['dismissonclick'],
+			click: function() {
+				console.log("button2 clicked."); 
+			}
+		}
+	]);
+}
 
+/*进度条*/
+function progressInit(){
 	/*进度条*/
 	var progressSpeed = 0;
 	var pstimer;
@@ -284,70 +375,4 @@ function createWindow() {
 	}).then(()=>{
 		// win.setDocumentEdited(true);
 	})
-
-
-	
-
-	var id = powerSaveBlocker.start('prevent-display-sleep');
-	console.log(powerSaveBlocker.isStarted(id));
-
-	powerSaveBlocker.stop(id);
-
-	/*缩略图 图标*/
-	win.setThumbarButtons([
-		{
-			tooltip: "button1",
-			icon: path.join(__dirname, 'button1.png'),
-			flags:['disabled'],
-			click: function() { 
-				// console.log("button2 clicked"); 
-			}
-		},
-		{
-			tooltip: "button2",
-			icon: path.join(__dirname, 'button2.png'),
-			flags:['dismissonclick'],
-			click: function() {
-				console.log("button2 clicked."); 
-			}
-		}
-	]);
-
-	// 打开窗口的调试工具
-	win.webContents.openDevTools();
-	// 窗口关闭的监听
-	win.on('closed', () => {
-		clearInterval(pstimer);
-		win = null;
-	});
 }
-
-var _setImmediate = setImmediate;
-var _clearImmediate = clearImmediate;
-process.once('loaded', function() {
-	// console.log('process loaded')
-	global.setImmediate = _setImmediate;
-	global.clearImmediate = _clearImmediate;
-});
-
-app.on('ready', createWindow);
-app.on('will-quit', function() {
-  // Unregister a shortcut.
-  globalShortcut.unregister('ctrl+x');
-
-  // Unregister all shortcuts.
-  globalShortcut.unregisterAll();
-});
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
-});
-
-app.on('activate', () => {
-  if (win === null) {
-    createWindow();
-  }
-});
-
-
