@@ -1,6 +1,6 @@
 const path = require('path');
 const electron = require('electron');
-const { app,BrowserWindow,ipcMain,nativeImage,dialog,globalShortcut,Menu,MenuItem } = electron;
+const { app,BrowserWindow,ipcMain,nativeImage,dialog,globalShortcut,Menu,MenuItem,powerSaveBlocker } = electron;
 
 
 
@@ -118,6 +118,10 @@ function createWindow() {
 	function globalShortcutAll(){
 		globalShortcut.register('ctrl+x', function() {
 			console.log('ctrl+x');
+		});
+
+		globalShortcut.register('F5', function() {
+			win.webContents.reload();
 		});
 	}
 
@@ -242,7 +246,7 @@ function createWindow() {
 
 	var menu = Menu.buildFromTemplate(template);
 	Menu.setApplicationMenu(menu);
-	
+
 	// console.log(winArr)
 
 	// win.webContents.on('paint', (event, dirty, image) => {
@@ -283,6 +287,11 @@ function createWindow() {
 
 
 	
+
+	var id = powerSaveBlocker.start('prevent-display-sleep');
+	console.log(powerSaveBlocker.isStarted(id));
+
+	powerSaveBlocker.stop(id);
 
 	/*缩略图 图标*/
 	win.setThumbarButtons([
