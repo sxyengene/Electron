@@ -34,6 +34,7 @@ function createWindow() {
 	menuInit();
 	thumbarButtonsInit();
 	progressInit();
+	powerSaveBlockerInit();
 	// console.log(123)
 	// return;
 	// win.maximize();
@@ -56,11 +57,7 @@ function createWindow() {
 
 	
 
-	var id = powerSaveBlocker.start('prevent-display-sleep');
-	console.log(powerSaveBlocker.isStarted(id));
-
-	powerSaveBlocker.stop(id);
-
+	
 	
 
 	
@@ -375,4 +372,13 @@ function progressInit(){
 	}).then(()=>{
 		// win.setDocumentEdited(true);
 	})
+}
+
+/*保证 电源*/
+function powerSaveBlockerInit(){
+	var id = powerSaveBlocker.start('prevent-display-sleep');
+	console.log(powerSaveBlocker.isStarted(id));
+
+	powerSaveBlocker.stop(id);
+
 }
