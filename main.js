@@ -112,14 +112,23 @@ function createWindow() {
 	var winArr = BrowserWindow.getAllWindows();
 	console.log(win.id);
 
+	/*键盘组合键*/
+	function globalShortcutAll(){
+		globalShortcut.register('ctrl+x', function() {
+			console.log('ctrl+x');
+		});
+	}
+	
+	win.on('blur',()=>{
+		globalShortcut.unregisterAll();
+	});
 
-	 var ret = globalShortcut.register('ctrl+x', function() {
-	    console.log('ctrl+x is pressed');
-	  })
-
+	win.on('focus',()=>{
+		globalShortcutAll();
+	});
 	
 	// win.setAutoHideMenuBar(true);
-	win.setMenuBarVisibility(false);
+	win.setMenuBarVisibility(true);
 	
 
 	// console.log(winArr)
