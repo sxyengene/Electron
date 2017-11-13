@@ -1,4 +1,5 @@
 const path = require('path');
+const http = require('http');
 const electron = require('electron');
 const { app,BrowserWindow,ipcMain,nativeImage,dialog,globalShortcut,Menu,MenuItem,powerSaveBlocker,protocol } = electron;
 
@@ -378,10 +379,14 @@ function powerSaveBlockerInit(){
 /*注册 protocol*/
 function protocolRegister(){
 	/*拦截协议*/
-	protocol.interceptHttpProtocol('http', function(req){
-		// console.log(req);
-	});
+	protocol.interceptHttpProtocol('http', function(req,callback){
+		// console.log(callback)
 
+	
+		var html='123';
+		callback({mimeType: 'application/text', data: Buffer.from(html,'utf-8')});
+	});
+	/*注册协议*/
 	protocol.registerHttpProtocol('abc', function(req){
 		// console.log(req);
 	});
