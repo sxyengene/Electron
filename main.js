@@ -52,15 +52,6 @@ function createWindow() {
  //    	// updateBitmap(dirty, image.getBitmap())
  //  	})
   	// win.webContents.setFrameRate(30);
-
-	
-
-
-	
-
-	
-	
-
 	
 	// 窗口关闭的监听
 	win.on('closed', () => {
@@ -386,7 +377,13 @@ function powerSaveBlockerInit(){
 
 /*注册 protocol*/
 function protocolRegister(){
-	protocol.registerHttpProtocol('http', function(){
-		
-	})
+	/*拦截协议*/
+	protocol.interceptHttpProtocol('http', function(req){
+		// console.log(req);
+	});
+
+	protocol.registerHttpProtocol('abc', function(req){
+		// console.log(req);
+	});
+
 }

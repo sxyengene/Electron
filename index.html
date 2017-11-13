@@ -5,11 +5,11 @@
     <title>Hello World!</title>
   </head>
   <body>
-    <script src="http://s.thsi.cn/sns/sea-modules/jquery/jquery/1.11.0/jquery.js?123"></script>
+    <script src="http://s.thsi.cn/sns/sea-modules/jquery/jquery/1.11.0/jquery.js?456"></script>
     <script>
-      // var electron = require('electron');
-      // var {ipcRenderer,remote} = electron;
-      // var {Menu,MenuItem} = remote;
+      var electron = require('electron');
+      var {ipcRenderer,remote} = electron;
+      var {Menu,MenuItem} = remote;
 
       var alertOnlineStatus = function() {
         var flag = navigator.onLine ? 'online' : 'offline';
@@ -145,7 +145,7 @@
       return false;
     };
     </script>
-
+    <img src="abc://1.png" alt="">
     <script>
   onload = function() {
     var webview = document.getElementById("foo");
