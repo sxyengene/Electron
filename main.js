@@ -1,6 +1,6 @@
 const path = require('path');
 const electron = require('electron');
-const { app,BrowserWindow,ipcMain,nativeImage,dialog,globalShortcut,Menu,MenuItem,powerSaveBlocker } = electron;
+const { app,BrowserWindow,ipcMain,nativeImage,dialog,globalShortcut,Menu,MenuItem,powerSaveBlocker,protocol } = electron;
 
 
 
@@ -35,6 +35,7 @@ function createWindow() {
 	thumbarButtonsInit();
 	progressInit();
 	powerSaveBlockerInit();
+	protocolRegister();
 	// console.log(123)
 	// return;
 	// win.maximize();
@@ -381,4 +382,11 @@ function powerSaveBlockerInit(){
 
 	powerSaveBlocker.stop(id);
 
+}
+
+/*注册 protocol*/
+function protocolRegister(){
+	protocol.registerHttpProtocol('http', function(){
+		
+	})
 }
