@@ -1,7 +1,19 @@
 const path = require('path');
 const http = require('http');
 const electron = require('electron');
-const { app,BrowserWindow,ipcMain,nativeImage,dialog,globalShortcut,Menu,MenuItem,powerSaveBlocker,protocol } = electron;
+const { 
+	app,
+	BrowserWindow,
+	ipcMain,
+	nativeImage,
+	dialog,
+	globalShortcut,
+	Menu,
+	MenuItem,
+	powerSaveBlocker,
+	protocol,
+	Tray,
+} = electron;
 
 
 
@@ -39,6 +51,7 @@ function createWindow() {
 	powerSaveBlockerInit();
 	protocolRegister();
 	webContentsInit(win);
+	TrayInit();
 	// console.log(123)
 	// return;
 	// win.maximize();
@@ -424,4 +437,16 @@ function webContentsInit(win){
 		// console.log( webContents.getURL());
 	})
 	
+}
+/*TrayInit*/
+function TrayInit(){
+	appIcon = new Tray('./button2.png');
+	appIcon.setToolTip('This is my application.');
+	var contextMenu = Menu.buildFromTemplate([
+		{ label: 'Item1', type: 'radio' },
+		{ label: 'Item2', type: 'radio' },
+		{ label: 'Item3', type: 'radio', checked: true },
+		{ label: 'Item4', type: 'radio' }
+	]);
+	appIcon.setContextMenu(contextMenu);
 }
