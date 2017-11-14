@@ -400,7 +400,24 @@ function webContentsInit(win){
 	webContents.on('dom-ready',()=>{
 		console.log('webContents dom-ready');
 		// console.log( webContents.getURL());
-	})
+		// var agent = webContents.getUserAgent()
+		// console.log(agent);
+		// webContents.insertCSS('div{background:yellow !important;}')
+		var result = webContents.findInPage('div');
+		console.log('result='+result)
+	});
+
+
+
+	/*findInPage 查询到之后 的操作*/
+	webContents.on('found-in-page',(event,result)=>{
+		return;
+		console.log('start found-in-page:');
+		console.log(result.requestId);
+		console.log(result.finalUpdate);
+		console.log(result.matches);
+		console.log(result.selectionArea);
+	});
 
 	webContents.on('did-navigate',()=>{
 		console.log('webContents will-navigate');
