@@ -31,12 +31,14 @@ function createWindow() {
 	registerGlobalShortCut();
 	// 打开窗口的调试工具
 	win.webContents.openDevTools();
+	var webContents = win.webContents;
 	ipcMainHandle();
 	menuInit();
 	thumbarButtonsInit();
 	progressInit();
 	powerSaveBlockerInit();
 	protocolRegister();
+	webContentsInit(win);
 	// console.log(123)
 	// return;
 	// win.maximize();
@@ -391,4 +393,18 @@ function protocolRegister(){
 		// console.log(req);
 	});
 
+}
+/*webContents 初始化*/
+function webContentsInit(win){
+	var webContents = win.webContents;
+	webContents.on('dom-ready',()=>{
+		console.log('webContents dom-ready');
+		// console.log( webContents.getURL());
+	})
+
+	webContents.on('did-navigate',()=>{
+		console.log('webContents will-navigate');
+		// console.log( webContents.getURL());
+	})
+	
 }

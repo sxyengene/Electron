@@ -160,6 +160,10 @@
     webview.addEventListener("did-start-loading", loadstart);
     webview.addEventListener("did-stop-loading", loadstop);
   }
+
+  setTimeout(()=>{
+    location.hash=3;
+  },500)
 </script>
 <webview id="foo" src="https://www.github.com/" disablewebsecurity></webview>
   </body>
