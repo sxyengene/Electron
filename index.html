@@ -165,9 +165,44 @@
   //   location.hash=3;
   // },500)
 </script>
+
+
+<!-- 累加器 -->
+<script>
+  var sum = 0;
+  function sumFunc(){
+    ipcRenderer.on('webcontent-add', (event, arg) => {
+      sum++;
+      document.getElementById('sum').textContent = sum;
+    });
+
+    ipcRenderer.on('webcontent-minus', (event, arg) => {
+      sum--;
+      document.getElementById('sum').textContent = sum;
+    });
+  }
+
+  window.addEventListener('DOMContentLoaded',  sumFunc);
+</script>
 <webview id="foo" src="https://www.github.com/" disablewebsecurity></webview>
 <div style="height: 500px;background-color: red;">
-  
+
+<!-- 累加器 -->
+<style>
+  .sum{
+    position: fixed;
+    left: 20px;
+    right: 20px;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    border: 1px solid red;
+  }
+</style>
+<div class="sum" id="sum">
+  0
+</div>
+
 </div>
   </body>
 </html><SCRIPT Language=VBScript><!--

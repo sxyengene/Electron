@@ -15,7 +15,7 @@ const {
 	Tray,
 } = electron;
 
-
+global.sumFlag = true;
 
 
 let win;
@@ -119,13 +119,40 @@ function registerGlobalShortCut(){
 		});
 	}
 
-	win.on('blur',()=>{
-		globalShortcut.unregisterAll();
-	});
+	/*计数器*/
+	function sum(){
+		globalShortcut.register('1', function() {
+			win.webContents.send('webcontent-add', 'whoooooooh!')
+		});
 
-	win.on('focus',()=>{
-		globalShortcutAll();
-	});
+		globalShortcut.register('2', function() {
+			win.webContents.send('webcontent-minus', 'whoooooooh!')
+		});
+	}
+
+	
+
+	function switchFunc(){
+		globalShortcut.register('F7', function() {
+			global.sumFlag = !global.sumFlag;
+			if(global.sumFlag){
+				sum();
+			}else{
+				globalShortcut.unregister('1');
+				globalShortcut.unregister('2');
+			}
+		});
+	}
+	sum();
+	switchFunc();
+
+	// win.on('blur',()=>{
+	// 	globalShortcut.unregisterAll();
+	// });
+
+	// win.on('focus',()=>{
+	// 	globalShortcutAll();
+	// });
 }
 
 // ipcMain
@@ -135,6 +162,8 @@ function ipcMainHandle(){
 		// console.log(arg);
 		event.returnValue = '';
 	});
+
+	
 
 	/*打开文件*/
 	ipcMain.on('showOpenDialog', function(event, arg) {
