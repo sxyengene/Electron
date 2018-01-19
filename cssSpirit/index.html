@@ -2,10 +2,11 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>cssSpirit</title>
   </head>
   <body>
     <script src="http://s.thsi.cn/sns/sea-modules/jquery/jquery/1.11.0/jquery.js?456"></script>
+    <link rel="stylesheet" href="./style.css">
     <script>
       var electron = require('electron');
       var {ipcRenderer,remote} = electron;
@@ -13,12 +14,15 @@
     </script>
     <style>
       canvas{
-        
+        width: 100%;
+        height: 300px;
+        border:1px solid #d2d2d2;
       }
     </style>
     <input type="file" multiple="multiple">
     <canvas>
       
     </canvas>
+
   </body>
 </html>

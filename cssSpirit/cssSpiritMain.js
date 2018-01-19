@@ -22,7 +22,8 @@ function createWindow() {
 	win = new BrowserWindow({
 		x:1000,
 		y:200,
-		title:"123"
+		title:"123",
+		autoHideMenuBar:true
 	});
 	win.loadURL(`file://${__dirname}/index.html`);
 
