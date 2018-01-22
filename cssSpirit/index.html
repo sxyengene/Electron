@@ -6,23 +6,19 @@
   </head>
   <body>
     <script src="http://s.thsi.cn/sns/sea-modules/jquery/jquery/1.11.0/jquery.js?456"></script>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./css/spirit.css">
     <script>
       var electron = require('electron');
       var {ipcRenderer,remote} = electron;
       var {Menu,MenuItem} = remote;
     </script>
-    <style>
-      canvas{
-        width: 100%;
-        height: 300px;
-        border:1px solid #d2d2d2;
-      }
-    </style>
-    <input type="file" multiple="multiple">
-    <canvas>
-      
-    </canvas>
-
+    <div class="container">
+      <input type="file" multiple="multiple">
+      <canvas>
+        
+      </canvas>
+    </div>
+    <script src="./js/vue.min.js"></script>
+    <script src="./js/main.js"></script>
   </body>
 </html>
