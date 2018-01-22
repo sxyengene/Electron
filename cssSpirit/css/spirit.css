@@ -24,3 +24,6 @@ canvas {
   height: 300px;
   border: 1px solid #edf1f2;
 }
+template {
+  display: none;
+}

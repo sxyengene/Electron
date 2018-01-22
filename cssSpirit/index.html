@@ -19,11 +19,13 @@
       delete window.module;
 
       var initData = {
-        
       };
     </script>
     <div class="container">
-      <input type="file" multiple="multiple" v-model="fileInput" @change="uploadFiles" :value="file">
+      <input type="file" multiple="multiple"  @change="uploadFiles">
+      <template>
+        <img src="" alt="">
+      </template>
       <canvas id="canvas">
         
       </canvas>

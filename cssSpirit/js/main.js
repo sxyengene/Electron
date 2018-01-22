@@ -1,4 +1,3 @@
-alert('main.js');
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 
@@ -26,7 +25,14 @@ CssSpirit.prototype = {
             },
             methods: {
             	uploadFiles:function(e){
-            		console.log(111);
+                    var files = e.target.files;
+                    if(files.length){
+                        for(var i = 0;i < files.length; i++ ){
+                            
+                        }
+                    }
+            		
+                    ctx.drawImage()
             	}
             }
         });
