@@ -1,3 +1,4 @@
+alert('main.js');
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 
@@ -6,11 +7,11 @@ var GData = {
 };
 var vm;
 
-function name(){
+function CssSpirit(){
     return this.init();
 }
 
-name.prototype = {
+CssSpirit.prototype = {
     init:function(){
         this.bindEvent();
         this.vueInit();
@@ -24,11 +25,17 @@ name.prototype = {
                 
             },
             methods: {
-            	
+            	uploadFiles:function(e){
+            		console.log(111);
+            	}
             }
         });
     },
     bindEvent:function(){
         
-    },
+    }
 };
+
+$(function() {
+    new CssSpirit();
+});
