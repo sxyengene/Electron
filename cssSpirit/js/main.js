@@ -1,3 +1,6 @@
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+
 var GData = {
 
 };
@@ -15,13 +18,13 @@ name.prototype = {
     vueInit:function(){
         $.extend(true, GData, initData);
         vm = new Vue({
-            el: '.',
+            el: '.container',
             data: GData,
             mounted:function(){
                 
             },
             methods: {
-                
+            	
             }
         });
     },
