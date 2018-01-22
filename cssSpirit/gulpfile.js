@@ -1,5 +1,15 @@
-var gulp = require('gulp');
+var lessFiles = ['./less/*.less','!**/workbenchbase*'];
+var cssFiles = './css/';
 
-gulp.task('default', function() {
-  // 将你的默认的任务代码放在这
+var gulp = require('gulp');
+const less = require('gulp-less');
+
+gulp.task('doless', function() {
+  gulp.src(lessFiles)
+  	.pipe(less())
+  	.pipe(gulp.dest(cssFiles))
+});
+
+gulp.task('default',['doless'], () => {
+    return gulp.watch(lessFiles, ['doless']);
 });
