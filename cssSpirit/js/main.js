@@ -1,4 +1,5 @@
-var canvas,ctx;
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
 var GData = {
 
 };
@@ -11,7 +12,7 @@ function CssSpirit(){
 CssSpirit.prototype = {
     init:function(){
         this.bindEvent();
-        this.vueInit();
+        this.vueInit();     
     },
     vueInit:function(){
         $.extend(true, GData, initData);
@@ -19,7 +20,6 @@ CssSpirit.prototype = {
             el: '.container',
             data: GData,
             mounted:function(){
-                
             },
             methods: {
             	uploadFiles:function(e){
@@ -30,18 +30,22 @@ CssSpirit.prototype = {
                     //     }
                     // }
 
-                    
-                    console.log(files);
-            		this.newImage('',function(){
-                        ctx.drawImage()
+                    var imgSrc = URL.createObjectURL(files[0]);
+
+            		this.newImage(imgSrc,function(image){
+                        var img = document.body.appendChild(image);
+                        var canvas = document.getElementById('canvas');
+                        var ctx = canvas.getContext('2d');
+                        ctx.drawImage(img,0,0);
                     });
                     
             	},
                 newImage:function(src,cb){
+                    console.log(123);
                     var image = new Image();
                     image.onload = function(){
                         if(typeof cb == 'function')
-                            cb();
+                            cb(image);
                     }
                     image.src = src;
                     return image;
@@ -55,6 +59,6 @@ CssSpirit.prototype = {
 };
 
 $(function() {
-    ctx.fillRect(0,0,10,10);
+    
     new CssSpirit();
 });

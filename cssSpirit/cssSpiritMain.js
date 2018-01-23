@@ -32,10 +32,9 @@ function createWindow() {
 	var webContents = win.webContents;
 
 	webContents.on('did-finish-load', ()=>{
-	    let code = `
-		    canvas = document.getElementById('canvas');
-		    ctx = canvas.getContext('2d');`;
-
+		let code = `
+			
+		`;
 	    webContents.executeJavaScript(code);
 	});
 
