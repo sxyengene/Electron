@@ -1,6 +1,4 @@
-var canvas = document.getElementById('canvas');
-var ctx = canvas.getContext('2d');
-
+var canvas,ctx;
 var GData = {
 
 };
@@ -26,14 +24,28 @@ CssSpirit.prototype = {
             methods: {
             	uploadFiles:function(e){
                     var files = e.target.files;
-                    if(files.length){
-                        for(var i = 0;i < files.length; i++ ){
+                    // if(files.length){
+                    //     for(var i = 0;i < files.length; i++ ){
                             
-                        }
+                    //     }
+                    // }
+
+                    
+                    console.log(files);
+            		this.newImage('',function(){
+                        ctx.drawImage()
+                    });
+                    
+            	},
+                newImage:function(src,cb){
+                    var image = new Image();
+                    image.onload = function(){
+                        if(typeof cb == 'function')
+                            cb();
                     }
-            		
-                    ctx.drawImage()
-            	}
+                    image.src = src;
+                    return image;
+                }
             }
         });
     },
@@ -43,5 +55,6 @@ CssSpirit.prototype = {
 };
 
 $(function() {
+    ctx.fillRect(0,0,10,10);
     new CssSpirit();
 });

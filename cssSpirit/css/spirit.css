@@ -20,7 +20,7 @@
 /*字体*/
 /**动画**/
 canvas {
-  width: 100%;
+  width: 500px;
   height: 300px;
   border: 1px solid #edf1f2;
 }

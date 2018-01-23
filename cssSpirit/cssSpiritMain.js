@@ -20,7 +20,7 @@ function createWindow() {
 	// console.log('app ready.create window.');
 	// 创建窗口并加载页面
 	win = new BrowserWindow({
-		x:1000,
+		x:600,
 		y:200,
 		title:"123",
 		autoHideMenuBar:true
@@ -30,6 +30,15 @@ function createWindow() {
 	// 打开窗口的调试工具
 	win.webContents.openDevTools();
 	var webContents = win.webContents;
+
+	webContents.on('did-finish-load', ()=>{
+	    let code = `
+		    canvas = document.getElementById('canvas');
+		    ctx = canvas.getContext('2d');`;
+
+	    webContents.executeJavaScript(code);
+	});
+
 
 	// 窗口关闭的监听
 	win.on('closed', () => {
