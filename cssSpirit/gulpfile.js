@@ -1,4 +1,4 @@
-var lessFiles = ['./less/*.less','!**/workbenchbase*'];
+var lessFiles = ['./less/*.less','!**/workbenchbase.less'];
 var cssFiles = './css/';
 
 var gulp = require('gulp');
@@ -10,6 +10,8 @@ gulp.task('doless', function() {
   	.pipe(gulp.dest(cssFiles))
 });
 
-gulp.task('default',['doless'], () => {
-    return gulp.watch(lessFiles, ['doless']);
+gulp.task('watch',() => {
+    gulp.watch(lessFiles, ['doless']);
 });
+
+gulp.task('default',['doless','watch']);
