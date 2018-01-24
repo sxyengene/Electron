@@ -1,5 +1,4 @@
-var canvas = document.getElementById('canvas');
-var ctx = canvas.getContext('2d');
+var canvas,ctx,mask,yStart;
 var GData = {
 
 };
@@ -20,32 +19,40 @@ CssSpirit.prototype = {
             el: '.container',
             data: GData,
             mounted:function(){
+                this.varInit();
             },
             methods: {
+                varInit:function(){
+                    canvas = document.getElementById('canvas');
+                    ctx = canvas.getContext('2d');
+                    mask = document.getElementById('mask');
+                    yStart = 0;
+                },
             	uploadFiles:function(e){
                     var files = e.target.files;
-                    // if(files.length){
-                    //     for(var i = 0;i < files.length; i++ ){
-                            
-                    //     }
-                    // }
+                    if(files.length){
+                        for(var i = 0;i < files.length; i++ ){
+                            let nowFile = files[i];
+                            var imgSrc = URL.createObjectURL(nowFile);
 
-                    var imgSrc = URL.createObjectURL(files[0]);
-
-            		this.newImage(imgSrc,function(image){
-                        var img = document.body.appendChild(image);
-                        var canvas = document.getElementById('canvas');
-                        var ctx = canvas.getContext('2d');
-                        ctx.drawImage(img,0,0);
-                    });
+                    		this.newImage(imgSrc,function(img){
+                                if(img.clientHeight){
+                                    ctx.drawImage(img,0,yStart);
+                                    yStart += img.clientHeight;
+                                }else{
+                                    alert(`${nowFile.name} 插入出错`)
+                                }
+                            });
+                        }
+                    }
                     
             	},
                 newImage:function(src,cb){
-                    console.log(123);
                     var image = new Image();
                     image.onload = function(){
+                        var img = mask.appendChild(image);
                         if(typeof cb == 'function')
-                            cb(image);
+                            cb(img);
                     }
                     image.src = src;
                     return image;
@@ -57,6 +64,11 @@ CssSpirit.prototype = {
         
     }
 };
+
+/*promise 顺序执行*/
+function(){
+    
+}
 
 $(function() {
     
