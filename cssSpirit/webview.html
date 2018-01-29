@@ -9,16 +9,19 @@
   <script>
   var initData = {
   };
+
+  pingHost()
   </script>
   <div class="container">
-      <input type="file" multiple="multiple"  @change="uploadFiles">
-      <template>
-        <img src="" alt="">
-      </template>
-      <canvas id="canvas">
-        
-      </canvas>
+      <div class="clearfix">
+        <input type="file" multiple="multiple"  @change="uploadFiles" class="fl">
+        <button id="btn">导出</button>
+      </div>
+      <div class="wrap">
+        <canvas width="1000" height="1000" id="canvas"></canvas>
+      </div>
     </div>
+    <div class="mask" id="mask"></div>
     <script src="./js/jquery.js"></script>
     <script src="./js/vue.min.js"></script>
     <script src="./js/main.js"></script>

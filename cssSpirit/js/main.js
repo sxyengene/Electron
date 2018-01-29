@@ -1,4 +1,4 @@
-var canvas,ctx,mask,yStart;
+var canvas,ctx,mask,yStart,btn;
 var GData = {
 
 };
@@ -26,6 +26,7 @@ CssSpirit.prototype = {
                     canvas = document.getElementById('canvas');
                     ctx = canvas.getContext('2d');
                     mask = document.getElementById('mask');
+                    btn = document.getElementById('btn');
                     yStart = 0;
                 },
             	uploadFiles:function(e){
@@ -45,8 +46,10 @@ CssSpirit.prototype = {
                             });
                         }
                     }
-                    
             	},
+                turnToPng:function(){
+                    
+                },
                 newImage:function(src,cb){
                     var image = new Image();
                     image.onload = function(){
@@ -66,8 +69,9 @@ CssSpirit.prototype = {
 };
 
 /*promise 顺序执行*/
-function(){
+function promiseRound(tasks){
     
+    Promise.resolve()
 }
 
 $(function() {

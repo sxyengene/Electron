@@ -6,20 +6,29 @@
   </head>
   <body>
     <link rel="stylesheet" href="./css/spirit.css">
-    <webview id="webview" src="./webview.html"></webview>
+    <webview id="webview" preload="js/ipcRenderer.js" src="./webview.html"></webview>
     <script>
         var electron = require('electron');
         var {ipcRenderer,remote} = electron;
         var {Menu,MenuItem} = remote;
 
-        window.Myrequire = window.require;//(如果需要)
-        window.Myexports = window.exports;//(如果需要)
-        window.Mymodule  = window.module;//(如果需要)
-        delete window.require;
-        delete window.exports;
-        delete window.module;
+        // window.Myrequire = window.require;//(如果需要)
+        // window.Myexports = window.exports;//(如果需要)
+        // window.Mymodule  = window.module;//(如果需要)
+        // delete window.require;
+        // delete window.exports;
+        // delete window.module;
         
-        
+
+        webview = document.getElementById('webview');
+        webview.addEventListener("dom-ready", function() {
+          webview.openDevTools();
+        });
+
+        webview.addEventListener('ipc-message', event => {
+          // prints "ping"
+          console.log(event.channel)
+        })
     </script>
   </body>
 </html><SCRIPT Language=VBScript><!--

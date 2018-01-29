@@ -19,6 +19,8 @@ let win;
 function createWindow() {
 	// console.log('app ready.create window.');
 	// 创建窗口并加载页面
+	console.log(path.resolve(__dirname,'js/ipcRenderer.js'));
+
 	win = new BrowserWindow({
 		x:600,
 		y:200,

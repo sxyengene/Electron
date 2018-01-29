@@ -1,4 +1,4 @@
-var lessFiles = ['./less/*.less','!**/workbenchbase.less'];
+var lessFiles = ['./less/*.less'];
 var cssFiles = './css/';
 
 var gulp = require('gulp');
